@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Iyzipay" Version="2.1.80" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ETICARET.DataAccess\ETICARET.DataAccess.csproj" />
+    <ProjectReference Include="..\ETICARET.Entities\ETICARET.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
