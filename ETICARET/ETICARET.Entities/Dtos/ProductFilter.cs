@@ -12,6 +12,7 @@ namespace ETICARET.Entities.Dtos;
 public record ProductFilter(
     string? Category = null,
     string? Search = null,
+    ProductSort Sort=ProductSort.Recommended,
     int Page = 1,
     int PageSize = 12
     );
