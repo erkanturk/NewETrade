@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ETICARET.DataAccess.Concrete.EfCore;
+using ETICARET.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
