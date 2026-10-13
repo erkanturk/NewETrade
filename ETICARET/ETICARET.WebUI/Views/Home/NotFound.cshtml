@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Sayfa Bulunamadı";
+}
+
+<div class="container error-page">
+    <div class="error-code">404</div>
+    <h1>Aradığınız sayfa bulunamadı</h1>
+    <p>Sayfa kaldırılmış, adı değişmiş ya da adres yanlış yazılmış olabilir. Arama kutusunu kullanmayı deneyin.</p>
+    <div class="d-flex justify-content-center gap-2">
+        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house me-1"></i> Ana Sayfa</a>
+        <a class="btn btn-outline-primary" asp-area="" asp-controller="Shop" asp-action="List" asp-route-category="">Ürünlere Göz At</a>
+    </div>
+</div>

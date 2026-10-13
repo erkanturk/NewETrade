@@ -49,7 +49,7 @@ namespace ETICARET.Business.Concrete
                 Address = request.Address,
                 Note = request.Note,
                 PaymentType = request.PaymentType,
-                State=request.PaymentType==PaymentType.CreditCart?OrderState.Preparing:OrderState.PaymentPending,
+                State=request.PaymentType==PaymentType.CreditCard?OrderState.Preparing:OrderState.PaymentPending,
                 Items= [..cart.Items.Select(i=>new OrderItem{
                     ProductId=i.ProductId,
                     ProductName=i.Product!.Name,
@@ -57,7 +57,7 @@ namespace ETICARET.Business.Concrete
                     Quantity=i.Quantity
                 })]
             };
-            if (request.PaymentType==PaymentType.CreditCart)
+            if (request.PaymentType==PaymentType.CreditCard)
             {
                 if(request.Card is null)
                     return ServiceResult.Fail("Kredi kartı bilgileri eksik.");
