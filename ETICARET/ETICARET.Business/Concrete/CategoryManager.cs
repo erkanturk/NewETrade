@@ -1,4 +1,4 @@
-﻿using ETICARET.Business.Abstract;
+using ETICARET.Business.Abstract;
 using ETICARET.Business.Models;
 using ETICARET.DataAccess.Abstract;
 using ETICARET.Entities;
@@ -48,7 +48,7 @@ public class CategoryManager(ICategoryDal categoryDal) : ICategoryService
         if (category is null)
             return ServiceResult.Fail("Kategori bulunamadı.");
 
-
+        
         await categoryDal.DeleteAsync(category);
         return ServiceResult.Ok($"\"{category.Name}\" kategorisi silindi.");
     }

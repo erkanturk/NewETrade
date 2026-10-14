@@ -1,4 +1,4 @@
-﻿using ETICARET.Business.Abstract;
+using ETICARET.Business.Abstract;
 using ETICARET.Business.Models;
 using ETICARET.DataAccess.Abstract;
 using ETICARET.Entities;
@@ -6,14 +6,19 @@ using ETICARET.Entities.Dtos;
 
 namespace ETICARET.Business.Concrete;
 
-
+/// <summary>
+/// Ürün iş kuralları. Veritabanı detayını bilmez; IProductDal üzerinden çalışır.
+/// NOT (C# 12 primary constructor): Bağımlılıklar sınıf adının yanında yazılır,
+/// eskisi gibi private alan + constructor yazmaya gerek kalmaz.
+/// </summary>
 public class ProductManager(IProductDal productDal, ICategoryDal categoryDal) : IProductService
 {
     public Task<List<Product>> GetHomeProductsAsync(int count = 10) => productDal.GetHomeProductsAsync(count);
 
     public Task<List<Product>> GetLatestAsync(int count = 10) => productDal.GetLatestAsync(count);
 
-
+    // NOT (record "with"): filter'ın kopyasını oluşturup sadece Page değerini değiştirir.
+    // Sayfa numarası 1'den küçük gelirse 1 kabul edilir.
     public Task<PagedResult<Product>> GetProductsAsync(ProductFilter filter)
         => productDal.GetPagedAsync(filter with { Page = Math.Max(1, filter.Page) });
 

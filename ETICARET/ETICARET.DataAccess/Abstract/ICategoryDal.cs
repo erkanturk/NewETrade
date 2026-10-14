@@ -1,14 +1,10 @@
-﻿using ETICARET.Entities;
+using ETICARET.Entities;
 using ETICARET.Entities.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ETICARET.DataAccess.Abstract
+namespace ETICARET.DataAccess.Abstract;
+
+public interface ICategoryDal : IRepository<Category>
 {
-    public interface ICategoryDal:IRepository<Category>
-    {
-        Task<List<CategoryWithCount>> GetAllWithCountAsync();
-        Task<Category?> GetWithProductsAsync(int id); 
-    }
+    Task<List<CategoryWithCount>> GetAllWithCountAsync();
+    Task<Category?> GetWithProductsAsync(int id);
 }

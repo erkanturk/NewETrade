@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 using ETICARET.Business.Abstract;
 using ETICARET.Business.Settings;

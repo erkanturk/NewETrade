@@ -1,13 +1,9 @@
-﻿using ETICARET.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ETICARET.Entities;
 
-namespace ETICARET.DataAccess.Abstract
+namespace ETICARET.DataAccess.Abstract;
+
+public interface ICommentDal : IRepository<Comment>
 {
-    public interface ICommentDal:IRepository<Comment>
-    {
-        Task<List<Comment>> GetByProductAsync(int productId);
-        Task<List<Comment>> GetAllWithProductAsync();
-    }
+    Task<List<Comment>> GetByProductAsync(int productId);
+    Task<List<Comment>> GetAllWithProductAsync();
 }

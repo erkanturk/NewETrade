@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace ETICARET.Business.Settings;
-/// <summary>
-/// Appsettings.json dosyasında Iyzico ayarlarını temsil eden sınıf.
-/// Program.cs builder.services.Configure<IyzicoSettings>(builder.Configuration.
-/// GetSection("IyzicoSettings")); ile appsettings.json 
-/// dosyasındaki IyzicoSettings bölümünü bu sınıfa bağlayabilirsiniz.
-/// </summary>
 
+/// <summary>
+/// appsettings.json → "Iyzico" bölümünün C# karşılığı (Options pattern).
+/// Program.cs: builder.Services.Configure&lt;IyzicoSettings&gt;(builder.Configuration.GetSection("Iyzico"));
+/// Kullanım:   IOptions&lt;IyzicoSettings&gt; ile constructor'dan alınır.
+/// </summary>
 public class IyzicoSettings
 {
-    public string BaseUrl { get; set; }= "https://sandbox-api.iyzipay.com";
+    public string BaseUrl { get; set; } = "https://sandbox-api.iyzipay.com";
     public string ApiKey { get; set; } = string.Empty;
     public string SecretKey { get; set; } = string.Empty;
 }

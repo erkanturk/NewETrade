@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace ETICARET.Entities
+namespace ETICARET.Entities;
+
+/// <summary>Ürün resmi. Dosyanın kendisi wwwroot/img/products klasöründe, burada sadece adı tutulur.</summary>
+public class Image : BaseEntity
 {
-    public class Image:BaseEntity
-    {
-        [MaxLength(300)]
-        public required string ImageUrl { get; set; }
-        public int ProductId { get; set; }
-        public Product? Product { get; set; }
+    [MaxLength(300)]
+    public required string ImageUrl { get; set; }
 
-    }
+    // Bire-çok ilişki: ProductId → yabancı anahtar (foreign key), Product → navigation property
+    public int ProductId { get; set; }
+    public Product? Product { get; set; }
 }

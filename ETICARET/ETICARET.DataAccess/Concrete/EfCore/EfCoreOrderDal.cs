@@ -1,4 +1,4 @@
-﻿using ETICARET.DataAccess.Abstract;
+using ETICARET.DataAccess.Abstract;
 using ETICARET.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +36,7 @@ public class EfCoreOrderDal(EticaretContext context)
             .ThenInclude(p => p!.Images.OrderBy(img => img.Id).Take(1))
             .FirstOrDefaultAsync(o => o.Id == id);
 
-
+   
     public async Task<decimal> GetTotalRevenueAsync()
         => await Context.OrderItems
             .Where(i => i.Order!.State != OrderState.Cancelled)

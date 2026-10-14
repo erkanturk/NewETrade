@@ -1,14 +1,10 @@
-﻿using ETICARET.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ETICARET.Entities;
 
-namespace ETICARET.DataAccess.Abstract
+namespace ETICARET.DataAccess.Abstract;
+
+public interface ICartDal : IRepository<Cart>
 {
-    public interface ICartDal:IRepository<Cart>
-    {
-        Task<Cart?> GetByUserIdAsync(string userId);
-        Task<int> GetItemCountAsync(string userId);
-        Task ClearAsync(int cartId);
-    }
+    Task<Cart?> GetByUserIdAsync(string userId);
+    Task<int> GetItemCountAsync(string userId);
+    Task ClearAsync(int cartId);
 }

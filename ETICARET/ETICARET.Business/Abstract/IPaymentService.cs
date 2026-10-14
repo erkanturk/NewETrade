@@ -1,13 +1,13 @@
-﻿using ETICARET.Business.Models;
+using ETICARET.Business.Models;
 using ETICARET.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ETICARET.Business.Abstract
+namespace ETICARET.Business.Abstract;
+
+/// <summary>
+/// Ödeme servisi. Bugün Iyzico, yarın başka bir firma olabilir;
+/// OrderManager sadece bu arayüzü bilir (Dependency Inversion).
+/// </summary>
+public interface IPaymentService
 {
-    public interface IPaymentService
-    {
-        Task<PaymentResult> PayAsync(Order order, CardInfo card, string ipAddress);
-    }
+    Task<PaymentResult> PayAsync(Order order, CardInfo card, string ipAddress);
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+namespace ETICARET.Business.Abstract;
 
-namespace ETICARET.Business.Abstract
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        Task<bool> SendAsync(string to, string subject, string htmlBody);
-    }
+    /// <returns>Mail gönderildiyse true; ayar eksik veya hata varsa false.</returns>
+    Task<bool> SendAsync(string to, string subject, string htmlBody);
 }

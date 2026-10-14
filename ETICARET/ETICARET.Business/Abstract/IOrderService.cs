@@ -1,4 +1,4 @@
-﻿using ETICARET.Business.Models;
+using ETICARET.Business.Models;
 using ETICARET.Entities;
 
 namespace ETICARET.Business.Abstract;
