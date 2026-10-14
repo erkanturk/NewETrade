@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ETICARET.Entities.Identity;
+using ETICARET.WebUI.Controllers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ETICARET.WebUI.Areas.Admin.Controllers
-{
-    public class AdminBaseController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
-}
+namespace ETICARET.WebUI.Areas.Admin.Controllers;
+
+[Area("Admin")]
+[Authorize(Roles =Roles.Admin)]
+public class AdminBaseController : BaseController;
