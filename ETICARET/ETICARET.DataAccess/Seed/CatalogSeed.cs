@@ -293,7 +293,7 @@ namespace ETICARET.DataAccess.Seed
             await context.SaveChangesAsync();
             if (context.Products.Count()>0&&context.Products.Count()<=20)
             {
-                Beyza.SeededAsync(context);
+                Ilknur.SeededAsync(context);
             }
            
            

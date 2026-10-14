@@ -1,0 +1,54 @@
+@model List<Comment>
+@{
+    ViewData["Title"] = "Yorumlar";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Yorumlar</h1>
+        <p>@Model.Count yorum</p>
+    </div>
+</div>
+
+<div class="panel">
+    @if (Model.Count == 0)
+    {
+        <div class="panel-body text-muted">Henüz yorum yapılmamış.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-admin">
+                <thead>
+                    <tr>
+                        <th>Yorum</th>
+                        <th>Ürün</th>
+                        <th>Kullanıcı</th>
+                        <th>Tarih</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comment in Model)
+                    {
+                        <tr>
+                            <td style="max-width: 420px">@comment.Text</td>
+                            <td>
+                                <a asp-area="" asp-controller="Shop" asp-action="Details" asp-route-id="@comment.ProductId" target="_blank">
+                                    @(comment.Product?.Name ?? $"#{comment.ProductId}")
+                                </a>
+                            </td>
+                            <td class="fw-semibold text-dark">@comment.UserName</td>
+                            <td class="text-muted text-nowrap">@comment.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td class="text-end">
+                                <form asp-action="Delete" asp-route-id="@comment.Id" method="post" data-confirm="Bu yorum silinsin mi?">
+                                    <button class="btn btn-sm btn-light text-danger" type="submit" title="Sil"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

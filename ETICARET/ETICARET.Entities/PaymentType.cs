@@ -6,6 +6,6 @@ namespace ETICARET.Entities;
 
 public enum PaymentType
 {
-    CreditCart=0,
+    CreditCard=0,
     Eft=1
 }

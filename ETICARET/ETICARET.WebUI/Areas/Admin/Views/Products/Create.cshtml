@@ -1,0 +1,18 @@
+@model ProductFormModel
+@{
+    ViewData["Title"] = "Yeni Ürün";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Yeni Ürün</h1>
+        <p>Ürün bilgilerini girin, kategori seçin ve en az bir resim yükleyin.</p>
+    </div>
+    <a class="btn btn-light" asp-action="Index"><i class="bi bi-arrow-left me-1"></i> Ürünler</a>
+</div>
+
+<partial name="_ProductForm" model="Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

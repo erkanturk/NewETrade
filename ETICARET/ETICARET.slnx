@@ -2,4 +2,5 @@
   <Project Path="ETICARET.Business/ETICARET.Business.csproj" Id="5f4feebf-b26f-49e6-a1c8-3e81b7fff04b" />
   <Project Path="ETICARET.DataAccess/ETICARET.DataAccess.csproj" />
   <Project Path="ETICARET.Entities/ETICARET.Entities.csproj" />
+  <Project Path="ETICARET.WebUI/ETICARET.WebUI.csproj" Id="1694c0b4-6581-486d-9cd7-f3a69edce1c7" />
 </Solution>
