@@ -1,0 +1,86 @@
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    string Active(string name) => controller == name ? "active" : "";
+    var userName = User.Identity?.Name ?? "?";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] · ETİCARET Yönetim</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="icon" href="~/favicon.ico" />
+</head>
+<body class="admin">
+    @* offcanvas-lg: Büyük ekranda sabit sol menü, küçük ekranda soldan açılan çekmece (Bootstrap 5.3) *@
+    <aside class="admin-sidebar offcanvas-lg offcanvas-start" id="adminSidebar" tabindex="-1" aria-label="Yönetim menüsü">
+        <a class="admin-brand" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+            <span class="brand-mark"><i class="bi bi-bag-heart-fill"></i></span>
+            ETİCARET
+            <small>PANEL</small>
+        </a>
+
+        <div class="admin-nav-label">Genel</div>
+        <ul class="admin-nav">
+            <li><a class="@Active("Dashboard")" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-grid-1x2"></i>Gösterge Paneli</a></li>
+        </ul>
+
+        <div class="admin-nav-label">Katalog</div>
+        <ul class="admin-nav">
+            <li><a class="@Active("Products")" asp-area="Admin" asp-controller="Products" asp-action="Index"><i class="bi bi-box-seam"></i>Ürünler</a></li>
+            <li><a class="@Active("Categories")" asp-area="Admin" asp-controller="Categories" asp-action="Index"><i class="bi bi-tags"></i>Kategoriler</a></li>
+        </ul>
+
+        <div class="admin-nav-label">Satış ve Üyeler</div>
+        <ul class="admin-nav">
+            <li><a class="@Active("Orders")" asp-area="Admin" asp-controller="Orders" asp-action="Index"><i class="bi bi-receipt"></i>Siparişler</a></li>
+            <li><a class="@Active("Users")" asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bi bi-people"></i>Kullanıcılar</a></li>
+            <li><a class="@Active("Comments")" asp-area="Admin" asp-controller="Comments" asp-action="Index"><i class="bi bi-chat-left-text"></i>Yorumlar</a></li>
+        </ul>
+
+        <div class="admin-sidebar-footer">
+            <a asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-shop"></i>Mağazaya Dön</a>
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit"><i class="bi bi-box-arrow-right"></i>Çıkış Yap</button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-label="Menüyü aç">
+                    <i class="bi bi-list"></i>
+                </button>
+                <span class="fw-semibold text-dark">@ViewData["Title"]</span>
+            </div>
+            <div class="admin-user">
+                <div class="avatar">@(userName[..1].ToUpper())</div>
+                <div class="d-none d-sm-block lh-sm">
+                    <div class="fw-semibold text-dark">@userName</div>
+                    <div class="small text-muted">Yönetici</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <partial name="_Toasts" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

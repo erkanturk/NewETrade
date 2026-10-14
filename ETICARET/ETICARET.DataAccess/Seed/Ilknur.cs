@@ -53,7 +53,10 @@ namespace ETICARET.DataAccess.Seed
                 description:"7 Bölme\n259 Litre Net Hacim\nDeğiştirilebilir Kapı Açılış Yönü",
                 "derindondurucu1.jpeg", "derindondurucu2.jpeg", "derindondurucu3"),
 
+<<<<<<< HEAD
             
+=======
+>>>>>>> master
 
               CatalogSeed.Create(name: "Arçelik Imperium® Slim 3.0 SDI 9524\r\nŞarjlı Dikey Süpürge", 29_999, stock: 17, category: evMutfak, isHome: true,
                 description: "Yeşil Led Teknolojisi\n Toz Haznesi Kapasitesi 0.5 L \n Kablosuz Çalışma Süresi 80 min",

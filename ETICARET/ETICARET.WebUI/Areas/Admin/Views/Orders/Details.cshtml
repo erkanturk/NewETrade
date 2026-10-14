@@ -1,0 +1,91 @@
+@model Order
+@{
+    ViewData["Title"] = $"Sipariş {Model.OrderNumber}";
+
+    // Enum değerlerinden açılır liste (DisplayName → FormatExtensions)
+    List<SelectListItem> states = [.. Enum.GetValues<OrderState>()
+        .Select(s => new SelectListItem(s.DisplayName, s.ToString(), s == Model.State))];
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Sipariş <span class="font-monospace">@Model.OrderNumber</span></h1>
+        <p>@Model.CreatedDate.ToTrDateTime() · @Model.PaymentType.DisplayName</p>
+    </div>
+    <a class="btn btn-light" asp-action="Index"><i class="bi bi-arrow-left me-1"></i> Siparişler</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-8">
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Ürünler</h2>
+                <span class="status @Model.State.BadgeClass">@Model.State.DisplayName</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-admin">
+                    <thead>
+                        <tr><th style="width: 72px"></th><th>Ürün</th><th class="text-center">Adet</th><th class="text-end">Birim</th><th class="text-end">Toplam</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td><img class="table-thumb" src="@(item.Product?.CoverImage ?? ProductExtensions.Placeholder)" alt="" /></td>
+                                <td class="fw-semibold text-dark">@item.ProductName</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end text-nowrap">@item.Price.ToTL()</td>
+                                <td class="text-end fw-bold text-dark text-nowrap">@((item.Price * item.Quantity).ToTL())</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-end fw-semibold">Genel toplam</td>
+                            <td class="text-end fw-bold text-dark fs-5 text-nowrap">@Model.TotalPrice.ToTL()</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="panel mb-4">
+            <div class="panel-head"><h2>Sipariş Durumu</h2></div>
+            <div class="panel-body">
+                <form asp-action="UpdateState" asp-route-id="@Model.Id" method="post" class="d-flex gap-2">
+                    <select name="state" class="form-select" asp-items="states"></select>
+                    <button class="btn btn-primary" type="submit">Güncelle</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel mb-4">
+            <div class="panel-head"><h2>Müşteri ve Teslimat</h2></div>
+            <div class="panel-body small">
+                <div class="fw-semibold text-dark fs-6">@Model.FullName</div>
+                <div class="text-muted mb-3">@Model.Email · @Model.Phone</div>
+                <div>@Model.Address</div>
+                <div class="fw-semibold">@Model.City</div>
+                @if (!string.IsNullOrWhiteSpace(Model.Note))
+                {
+                    <div class="alert alert-light border mt-3 mb-0"><i class="bi bi-chat-left-quote me-1"></i> @Model.Note</div>
+                }
+            </div>
+        </div>
+
+        @if (Model.PaymentId is not null)
+        {
+            <div class="panel">
+                <div class="panel-head"><h2>Ödeme (Iyzico)</h2></div>
+                <div class="panel-body small">
+                    <div class="text-muted">Ödeme No</div>
+                    <div class="font-monospace mb-2">@Model.PaymentId</div>
+                    <div class="text-muted">Conversation Id</div>
+                    <div class="font-monospace text-break">@Model.ConversationId</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

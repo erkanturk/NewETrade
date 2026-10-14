@@ -1,0 +1,66 @@
+@model CategoryFormModel
+@{
+    ViewData["Title"] = "Kategoriyi Düzenle";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Kategoriyi Düzenle</h1>
+        <p>#@Model.Id</p>
+    </div>
+    <a class="btn btn-light" asp-action="Index"><i class="bi bi-arrow-left me-1"></i> Kategoriler</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-5">
+        <div class="panel">
+            <div class="panel-head"><h2>Kategori Bilgisi</h2></div>
+            <div class="panel-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-check2 me-1"></i> Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-7">
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Bu Kategorideki Ürünler</h2>
+                <span class="badge text-bg-light">@Model.Products.Count ürün</span>
+            </div>
+            @if (Model.Products.Count == 0)
+            {
+                <div class="panel-body text-muted">Bu kategoride henüz ürün yok.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-admin">
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td style="width: 72px"><img class="table-thumb" src="@product.CoverImage" alt="" loading="lazy" /></td>
+                                    <td class="fw-semibold text-dark">@product.Name</td>
+                                    <td class="text-end text-nowrap">@product.Price.ToTL()</td>
+                                    <td class="text-end"><a class="btn btn-sm btn-light" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id"><i class="bi bi-pencil"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

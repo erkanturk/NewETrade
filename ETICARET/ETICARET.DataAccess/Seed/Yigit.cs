@@ -7,6 +7,6 @@ namespace ETICARET.DataAccess.Seed
 {
     public class Yigit
     {
-        CatalogSeed
+        
     }
 }

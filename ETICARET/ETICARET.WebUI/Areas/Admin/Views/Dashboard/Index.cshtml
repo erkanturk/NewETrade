@@ -1,0 +1,108 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Gösterge Paneli";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Hoş geldiniz, @User.Identity?.Name</h1>
+        <p>Mağazanın genel durumu</p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Products" asp-action="Create"><i class="bi bi-plus-lg me-1"></i> Yeni Ürün</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xxl">
+        <div class="surface stat-card">
+            <span class="stat-icon stat-icon--emerald"><i class="bi bi-cash-stack"></i></span>
+            <div><div class="stat-value">@Model.Revenue.ToTL()</div><div class="stat-label">Toplam ciro</div></div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl">
+        <div class="surface stat-card">
+            <span class="stat-icon stat-icon--indigo"><i class="bi bi-receipt"></i></span>
+            <div><div class="stat-value">@Model.OrderCount</div><div class="stat-label">Sipariş</div></div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl">
+        <div class="surface stat-card">
+            <span class="stat-icon stat-icon--sky"><i class="bi bi-box-seam"></i></span>
+            <div><div class="stat-value">@Model.ProductCount</div><div class="stat-label">Ürün</div></div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl">
+        <div class="surface stat-card">
+            <span class="stat-icon stat-icon--amber"><i class="bi bi-tags"></i></span>
+            <div><div class="stat-value">@Model.CategoryCount</div><div class="stat-label">Kategori</div></div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl">
+        <div class="surface stat-card">
+            <span class="stat-icon stat-icon--rose"><i class="bi bi-people"></i></span>
+            <div><div class="stat-value">@Model.UserCount</div><div class="stat-label">Kullanıcı</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-8">
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Son Siparişler</h2>
+                <a class="link-more small" asp-controller="Orders" asp-action="Index">Tümü <i class="bi bi-arrow-right"></i></a>
+            </div>
+            @if (Model.LatestOrders.Count == 0)
+            {
+                <div class="panel-body text-muted">Henüz sipariş yok.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-admin">
+                        <thead>
+                            <tr><th>Sipariş</th><th>Müşteri</th><th>Tarih</th><th>Durum</th><th class="text-end">Tutar</th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.LatestOrders)
+                            {
+                                <tr>
+                                    <td><a class="fw-semibold" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">@order.OrderNumber</a></td>
+                                    <td>@order.FullName</td>
+                                    <td class="text-muted">@order.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td><span class="status @order.State.BadgeClass">@order.State.DisplayName</span></td>
+                                    <td class="text-end fw-bold text-dark">@order.TotalPrice.ToTL()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Stoğu Azalan Ürünler</h2>
+                <span class="badge text-bg-light">≤ 3 adet</span>
+            </div>
+            @if (Model.LowStockProducts.Count == 0)
+            {
+                <div class="panel-body text-muted">Bütün ürünlerin stoğu yeterli.</div>
+            }
+            else
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var product in Model.LowStockProducts)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
+                            <a class="text-dark text-decoration-none small fw-semibold text-truncate me-3"
+                               asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">@product.Name</a>
+                            <span class="stock-badge @(product.Stock == 0 ? "is-out" : "is-low")">@product.Stock</span>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
