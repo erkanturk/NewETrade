@@ -4,7 +4,7 @@ namespace ETICARET.WebUI.Extensions
 {
     public static class ProductExtensions
     {
-        public const string ImageFolder = "/img/products";
+        public const string ImageFolder = "/img/products/";
         public const string Placeholder = "/img/placeholder.jpg";
         public static string ImagePath(string? fileName)
         => string.IsNullOrWhiteSpace(fileName) ? Placeholder : ImageFolder+fileName;
