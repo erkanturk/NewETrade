@@ -9,6 +9,7 @@
   <ItemGroup>
     <!-- Iyzico sanal POS (ödeme) kütüphanesi -->
     <PackageReference Include="Iyzipay" Version="2.1.80" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>

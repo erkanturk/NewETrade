@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ETICARET.WebUI.Controllers.Api
+namespace ETICARET.WebUI.Controllers.Api;
+
+[ApiController]
+[Produces("application/json")]
+[EnableCors(CorsPolicyName)]
+[IgnoreAntiforgeryToken]
+
+public abstract class ApiBaseController : ControllerBase
 {
-    public class ApiBaseController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+    public const string CorsPolicyName = "ApiCors";
+    //iphone.1.jpg "Https://localhost:3000/img/products/iphone-1.jpg"
+    protected string AbsoluteUrl(string path) => $"{Request.Scheme}://{Request.Host}{path}";
 }

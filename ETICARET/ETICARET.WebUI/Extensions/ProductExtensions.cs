@@ -10,7 +10,7 @@ namespace ETICARET.WebUI.Extensions
         => string.IsNullOrWhiteSpace(fileName) ? Placeholder : ImageFolder+fileName;
         extension(Product product)
         {
-            public string ConverImage => ImagePath(product.Images.FirstOrDefault()?.ImageUrl);
+            public string CoverImage => ImagePath(product.Images.FirstOrDefault()?.ImageUrl);
 
             public bool InStock => product.Stock>0;
 
